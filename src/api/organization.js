@@ -1,14 +1,16 @@
+const serviceOrganization = require('../service/organization')
+
 class ApiOrganization {
 
     async findById(req, res){
 
         try {
             const {id} = req.params
-            const organization = {} // await service.findById(organizationId)
-    
+            const organization = await serviceOrganization.FindById(id)
+            
             res.status(200).send({ organization })
         } catch (error) {
-            res.status(5500).send({ msg: error.message })
+            res.status(500).send({ msg: error.message })
         }
 
     }
@@ -16,12 +18,12 @@ class ApiOrganization {
     async Create(req, res){
 
         try {
-            const {id} = req.params
-            const organization = {} // await service.findById(organizationId)
+            const { name, address, phone, email } = req.body
+            const organization = await serviceOrganization.Create(name, address, phone, email)
     
             res.status(200).send({ organization })
         } catch (error) {
-            res.status(5500).send({ msg: error.message })
+            res.status(500).send({ msg: error.message })
         }
 
     }
@@ -30,11 +32,12 @@ class ApiOrganization {
 
         try {
             const {id} = req.params
-            const organization = {} // await service.findById(organizationId)
+            const { name, address, phone, email } = req.body
+            const organization = await serviceOrganization.Update(id, name, address, phone, email)
     
             res.status(200).send({ organization })
         } catch (error) {
-            res.status(5500).send({ msg: error.message })
+            res.status(500).send({ msg: error.message })
         }
 
     }
@@ -43,11 +46,11 @@ class ApiOrganization {
 
         try {
             const {id} = req.params
-            const organization = {} // await service.findById(organizationId)
+            const organization =  await serviceOrganization.Delete(id)
     
-            res.status(200).send({ organization })
+            res.status(200).send({ msg: "Organização deletada com sucesso" })
         } catch (error) {
-            res.status(5500).send({ msg: error.message })
+            res.status(500).send({ msg: error.message })
         }
 
     }

@@ -4,11 +4,12 @@ class ApiProduct {
 
         try {
             const {id} = req.params
-            const product = {} // await service.findById(productId)
+            const organizationId = 1
+            const product = { id } // await service.findById(productId)
     
             res.status(200).send({ product })
         } catch (error) {
-            res.status(5500).send({ msg: error.message })
+            res.status(500).send({ msg: error.message })
         }
 
     }
@@ -16,12 +17,12 @@ class ApiProduct {
     async findAll(req, res){
 
         try {
-            const {id} = req.params
-            const users = [{}] // await service.findById(productId)
+            const organizationId = 1
+            const products = [{ organizationId }] // await service.findById(productId)
     
-            res.status(200).send({ product })
+            res.status(200).send({ products })
         } catch (error) {
-            res.status(5500).send({ msg: error.message })
+            res.status(500).send({ msg: error.message })
         }
 
     }
@@ -29,12 +30,13 @@ class ApiProduct {
     async Create(req, res){
 
         try {
-            const {id} = req.params
-            const product = {} // await service.findById(productId)
+            const organizationId = 1
+            const {name, description} = req.body
+            const product = { name, description } // await service.findById(productId)
     
             res.status(200).send({ product })
         } catch (error) {
-            res.status(5500).send({ msg: error.message })
+            res.status(500).send({ msg: error.message })
         }
 
     }
@@ -42,12 +44,14 @@ class ApiProduct {
     async Update(req, res){
 
         try {
+            const organizationId = 1
             const {id} = req.params
-            const product = {} // await service.findById(productId)
+            const { name, description } = req.body
+            const product = {id, name, description} // await service.findById(productId)
     
             res.status(200).send({ product })
         } catch (error) {
-            res.status(5500).send({ msg: error.message })
+            res.status(500).send({ msg: error.message })
         }
 
     }
@@ -55,12 +59,13 @@ class ApiProduct {
     async Delete(req, res){
 
         try {
+            const organizationId = 1
             const {id} = req.params
-            const product = {} // await service.findById(productId)
+            const product = {id} // await service.findById(productId)
     
             res.status(200).send({ product })
         } catch (error) {
-            res.status(5500).send({ msg: error.message })
+            res.status(500).send({ msg: error.message })
         }
 
     }
