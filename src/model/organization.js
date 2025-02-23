@@ -1,8 +1,8 @@
-const database = require('../database');
+const database = require('../database')
 
 class Organization {
-    constructor(){
-        this.model = database.db.define("organization", {
+    constructor() {
+        this.model = database.db.define("organizations", {
             id: {
                 type: database.db.Sequelize.INTEGER,
                 primaryKey: true,
@@ -24,9 +24,9 @@ class Organization {
                 type: database.db.Sequelize.STRING,
                 allowNull: false,
                 unique: true
-            }
+            },
         })
     }
 }
 
-module.exports = new Organization().model;
+module.exports = new Organization().model
