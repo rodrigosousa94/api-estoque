@@ -34,18 +34,27 @@ class ServiceUser {
     }
 
     async Update(organizationId, id, name, email, password, role, transaction){
-        const user = await this.FindById(organizationId, id, transaction);
+        const oldUser = await this.FindById(organizationId, id, transaction);
 
-        if(!user){
+        if(!oldUser){
             throw new Error("Usuário não encontrado")
         }
 
-        user.name = name || user.name
-        user.email = email || user.email
-        user.password = password || user.password
-        user.role = role || user.role
+        if(role && !oldUser.includes(role)){
+            throw new Error("Favor informar a permissão corretamente")
+        }
 
-        return user.save({ transaction })
+        if(role && oldUser.role === "admin"){
+            oldUser.role === role
+        }
+
+        oldUser.name = name || oldUser.name
+        oldUser.email = email || oldUser.email
+        oldUser.password = password ? await bcrypt.hash(password, salts) : oldUser.password
+
+        await oldUser.save({ transaction })
+
+        return oldUser
     }
 
     async Delete(organizationId, id, transaction){
@@ -55,7 +64,7 @@ class ServiceUser {
             throw new Error("Usuário não encontrado")
         }
 
-        user.destroy({ transaction })
+        await user.destroy({ transaction })
     }
 
 }
